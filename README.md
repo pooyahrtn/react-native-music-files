@@ -10,8 +10,10 @@
 
 ## Usage
 ```javascript
-import MusicFiles from 'react-native-music-files';
+import {syncTracks, MusicFile} from 'react-native-music-files';
 
-// TODO: What to do with the module?
-MusicFiles;
+syncTracks({minimumSongDuration: 30000}, (file: MusicFile) => {
+    ...
+});
+
 ```
