@@ -1,0 +1,62 @@
+{
+  "name": "react-native-music-files",
+  "title": "React Native Music Files",
+  "version": "1.0.2",
+  "description": "TODO",
+  "main": "lib/commonjs/index.js",
+  "source": "src/index.tsx",
+  "module": "lib/module/index.js",
+  "types": "lib/typescript/src/index.d.ts",
+  "files": [
+    "README.md",
+    "android",
+    "src",
+    "lib",
+    "ios",
+    "react-native-music-files.podspec"
+  ],
+  "scripts": {
+    "prepare": "bob build",
+    "clean": "del lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/github_account/react-native-music-files.git",
+    "baseUrl": "https://github.com/github_account/react-native-music-files"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": {
+    "name": "Pooya Haratian",
+    "email": "pooyaharatian@gmail.com"
+  },
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": "^16.8.1",
+    "react-native": ">=0.60.0-rc.0 <1.0.x"
+  },
+  "devDependencies": {
+    "@react-native-community/bob": "^0.15.1",
+    "@types/react-native": "^0.62.13",
+    "react": "^16.9.0",
+    "react-native": "^0.61.5",
+    "typescript": "^3.9.5"
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      [
+        "typescript",
+        {
+          "project": "tsconfig.json"
+        }
+      ]
+    ]
+  }
+}
