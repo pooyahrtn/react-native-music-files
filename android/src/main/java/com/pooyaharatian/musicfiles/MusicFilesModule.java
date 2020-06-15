@@ -37,6 +37,7 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
     private int minimumSongDuration = 0;
     private String coverFolder = "/";
 
+
     public MusicFilesModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
@@ -75,7 +76,9 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
         if (!(cursor != null && cursor.moveToFirst())) {
             errorCallback.invoke("Something get wrong with musicCursor");
         }
+        assert cursor != null;
         if (cursor.getCount() == 0) {
+
             errorCallback.invoke("There is no song in device");
         }
         WritableArray result = new WritableNativeArray();
@@ -102,7 +105,7 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
                 String path = cursor.getString(pathColumn);
                 mmr.setDataSource(path);
 
-                if (path != null && path != "" && duration > minimumSongDuration) {
+                if (path != null && !path.equals("") && duration > minimumSongDuration) {
 
                     WritableMap trackMap = new WritableNativeMap();
                     trackMap.putString("id", String.valueOf(id));
@@ -118,8 +121,7 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
                         if (albumImageData != null) {
                             Bitmap songImage = BitmapFactory.decodeByteArray(albumImageData, 0, albumImageData.length);
                             String encoded = "";
-
-                            String pathToImg = Environment.getExternalFilesDir() + coverFolder + id + ".jpg";
+                            String pathToImg = reactContext.getApplicationContext().getExternalFilesDir(null) + coverFolder + id + ".jpg";
                             encoded = fcm.saveImageToStorageAndGetPath(pathToImg, songImage);
                             trackMap.putString("cover", "file://" + encoded);
 
@@ -128,9 +130,10 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
                         Log.e("embedImage", e.getMessage());
                     }
                     // sendEvent(reactContext, "onSongReceived", trackMap);
-                    jsonArray.pushMap(trackMap);
+                    result.pushMap(trackMap);
                 }
             }
+            successCallback.invoke(result);
         } catch (Exception e) {
             errorCallback.invoke(e.getMessage());
         }

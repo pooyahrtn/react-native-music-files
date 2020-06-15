@@ -1,4 +1,4 @@
-import { NativeModules, Platform, DeviceEventEmitter } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 
 const { MusicFiles } = NativeModules;
 

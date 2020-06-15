@@ -12,5 +12,5 @@ export interface MusicFile {
     duration: number;
     cover: string;
 }
-export declare const syncTracks: (options: MusicFileOptions, onTrackReceived: (track: MusicFile) => void) => Promise<unknown>;
+export declare const getTracks: (options: MusicFileOptions) => Promise<unknown>;
 export default MusicFiles;
