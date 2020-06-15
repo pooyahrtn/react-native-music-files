@@ -1,7 +1,7 @@
 {
   "name": "react-native-music-files",
   "title": "React Native Music Files",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "TODO",
   "main": "lib/commonjs/index.js",
   "source": "src/index.tsx",

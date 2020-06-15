@@ -19,7 +19,7 @@ export interface MusicFile {
 
 
 export const getTracks = (options: MusicFileOptions) => {
-    return new Promise((res, rej)=>{
+    return new Promise<MusicFile[]>((res, rej)=>{
         if(Platform.OS === 'android'){
             MusicFiles.getAll(options, res, rej);
         }else{
