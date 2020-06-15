@@ -35,6 +35,7 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
     private int version = Build.VERSION.SDK_INT;
 
     private int minimumSongDuration = 0;
+    private String coverFolder = "/";
 
     public MusicFilesModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -77,6 +78,7 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
         if (cursor.getCount() == 0) {
             errorCallback.invoke("There is no song in device");
         }
+        WritableArray result = new WritableNativeArray();
 
         try {
             MediaMetadataRetriever mmr = new MediaMetadataRetriever();
@@ -117,7 +119,7 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
                             Bitmap songImage = BitmapFactory.decodeByteArray(albumImageData, 0, albumImageData.length);
                             String encoded = "";
 
-                            String pathToImg = Environment.getExternalStorageDirectory() + "/" + id + ".jpg";
+                            String pathToImg = Environment.getExternalFilesDir() + coverFolder + id + ".jpg";
                             encoded = fcm.saveImageToStorageAndGetPath(pathToImg, songImage);
                             trackMap.putString("cover", "file://" + encoded);
 
@@ -125,7 +127,8 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
                     } catch (Exception e) {
                         Log.e("embedImage", e.getMessage());
                     }
-                    sendEvent(reactContext, "onSongReceived", trackMap);
+                    // sendEvent(reactContext, "onSongReceived", trackMap);
+                    jsonArray.pushMap(trackMap);
                 }
             }
         } catch (Exception e) {

@@ -18,7 +18,7 @@ export interface MusicFile {
 }
 
 
-const startListenTracks = (options: MusicFileOptions) => {
+export const getTracks = (options: MusicFileOptions) => {
     return new Promise((res, rej)=>{
         if(Platform.OS === 'android'){
             MusicFiles.getAll(options, res, rej);
@@ -28,9 +28,11 @@ const startListenTracks = (options: MusicFileOptions) => {
     })
 }
 
-export const syncTracks = (options: MusicFileOptions, onTrackReceived: (track: MusicFile)=> void) =>{
-    DeviceEventEmitter.addListener("onSongReceived", onTrackReceived);
-    return startListenTracks(options);
-}
+// export const syncTracks = (options: MusicFileOptions, onTrackReceived: (track: MusicFile)=> void) =>{
+//     DeviceEventEmitter.addListener("onSongReceived", onTrackReceived);
+//     return getTracks(options);
+// }
+
+MusicFiles.getTracks = getTracks;
 
 export default MusicFiles;

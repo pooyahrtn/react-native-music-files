@@ -9,6 +9,8 @@ export interface MusicFile {
     title: string;
     displayName: string;
     album: string;
+    duration: number;
+    cover: string;
 }
 export declare const syncTracks: (options: MusicFileOptions, onTrackReceived: (track: MusicFile) => void) => Promise<unknown>;
 export default MusicFiles;
