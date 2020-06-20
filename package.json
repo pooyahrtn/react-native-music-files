@@ -1,8 +1,8 @@
 {
   "name": "react-native-music-files",
   "title": "React Native Music Files",
-  "version": "1.0.4",
-  "description": "TODO",
+  "version": "1.0.5",
+  "description": "ReactNative package to get android music files",
   "main": "lib/commonjs/index.js",
   "source": "src/index.tsx",
   "module": "lib/module/index.js",

@@ -37,7 +37,6 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
     private int minimumSongDuration = 0;
     private String coverFolder = "/";
 
-
     public MusicFilesModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
@@ -56,7 +55,17 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
         } else {
             minimumSongDuration = 0;
         }
-        getSongs(successCallback, errorCallback);
+        if (version <= 19) {
+            getSongs(successCallback, errorCallback);
+        } else {
+            Thread bgThread = new Thread(null, new Runnable() {
+                @Override
+                public void run() {
+                    getSongs(successCallback, errorCallback);
+                }
+            }, "asyncTask", 1024);
+            bgThread.start();
+        }
     }
 
     private void getSongs(final Callback successCallback, final Callback errorCallback) {
@@ -121,7 +130,8 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
                         if (albumImageData != null) {
                             Bitmap songImage = BitmapFactory.decodeByteArray(albumImageData, 0, albumImageData.length);
                             String encoded = "";
-                            String pathToImg = reactContext.getApplicationContext().getExternalFilesDir(null) + coverFolder + id + ".jpg";
+                            String pathToImg = reactContext.getApplicationContext().getExternalFilesDir(null)
+                                    + coverFolder + id + ".jpg";
                             encoded = fcm.saveImageToStorageAndGetPath(pathToImg, songImage);
                             trackMap.putString("cover", "file://" + encoded);
 
