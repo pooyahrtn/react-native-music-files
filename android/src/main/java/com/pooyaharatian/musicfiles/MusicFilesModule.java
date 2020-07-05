@@ -84,11 +84,12 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
 
         if (!(cursor != null && cursor.moveToFirst())) {
             errorCallback.invoke("Something get wrong with musicCursor");
+            return;
         }
-        assert cursor != null;
+   
         if (cursor.getCount() == 0) {
-
             errorCallback.invoke("There is no song in device");
+            return;
         }
         WritableArray result = new WritableNativeArray();
 
