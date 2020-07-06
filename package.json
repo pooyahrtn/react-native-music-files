@@ -1,7 +1,7 @@
 {
   "name": "react-native-music-files",
   "title": "React Native Music Files",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "ReactNative package to get android music files",
   "main": "lib/commonjs/index.js",
   "source": "src/index.tsx",
@@ -21,8 +21,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/github_account/react-native-music-files.git",
-    "baseUrl": "https://github.com/github_account/react-native-music-files"
+    "url": "git+https://github.com/pooyahrtn/react-native-music-files.git",
+    "baseUrl": "https://github.com/pooyahrtn/react-native-music-files"
   },
   "keywords": [
     "react-native"
