@@ -17,7 +17,6 @@ import android.provider.MediaStore;
 import android.os.Build;
 import androidx.annotation.Nullable;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.content.ContentResolver;
@@ -113,7 +112,15 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
                 String album = cursor.getString(albumColumn);
                 String displayName = cursor.getString(displayNameColumn);
                 String path = cursor.getString(pathColumn);
-                mmr.setDataSource(path);
+                try {
+                    mmr.setDataSource(
+                            reactContext.getApplicationContext(),
+                            Uri.parse(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI.toString() + "/" + Long.toString(id))
+                    );
+                } catch (IllegalArgumentException e) {
+                    Log.e("Metadata error", "IllegalArgumentException at MediaMetadataRetriever.setDataSource", e);
+                    continue;
+                }
 
                 if (path != null && !path.equals("") && duration > minimumSongDuration) {
 
@@ -147,6 +154,7 @@ public class MusicFilesModule extends ReactContextBaseJavaModule {
             successCallback.invoke(result);
         } catch (Exception e) {
             errorCallback.invoke(e.getMessage());
+            Log.e("rn music-files", Log.getStackTraceString(e));
         }
     }
 
